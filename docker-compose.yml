@@ -1,0 +1,19 @@
+services:
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: noto_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: '0000'
+      POSTGRES_DB: noto
+    ports:
+      - "5432:5432"
+    volumes:
+      # - noto_postgres:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+# volumes:
+#   noto_postgres:
