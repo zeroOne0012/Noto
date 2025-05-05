@@ -1,29 +1,19 @@
 // 개체
 CREATE TABLE member (
     member_id      VARCHAR(15)  PRIMARY KEY,
-    email          VARCHAR(20)  NOT NULL UNIQUE,
+    email          VARCHAR(50)  NOT NULL UNIQUE,
     phone          VARCHAR(15)  NOT NULL UNIQUE,
     nickname       VARCHAR(30),
-    password       VARCHAR(15)  NOT NULL CHECK (char_length(password) BETWEEN 8 AND 15),
-    is_verified    BOOLEAN      DEFAULT FALSE,
+    password       VARCHAR(255)  NOT NULL,
     register_date  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Schedule (
     schedule_idx    INT PRIMARY KEY,
     title           VARCHAR(50) NOT NULL,
-    schedule_type   VARCHAR(30) NOT NULL
-);
-
-CREATE TABLE RoutineSchedule (
-    schedule_idx    INT PRIMARY KEY,
-    title           VARCHAR(50) NOT NULL,
     schedule_type   VARCHAR(30) NOT NULL,
     cycle_type      VARCHAR(30),
     active          BOOLEAN NOT NULL DEFAULT TRUE,
-
-    CONSTRAINT fk_routine_schedule
-    FOREIGN KEY (schedule_idx) REFERENCES Schedule(schedule_idx)
 );
 
 CREATE TABLE NonRoutineSchedule (
@@ -44,19 +34,6 @@ CREATE TABLE Instance (
     PRIMARY KEY (schedule_idx, instance_idx),
 
     CONSTRAINT fk_instance
-    FOREIGN KEY (schedule_idx) REFERENCES Schedule(schedule_idx)
-);
-
-CREATE TABLE Task (
-    schedule_idx    INT,
-    task_idx        INT,
-    achievement     BOOLEAN NOT NULL,
-    content         VARCHAR(500),
-    priority        INT NOT NULL DEFAULT 1,
-
-    PRIMARY KEY (schedule_idx, task_idx),
-
-    CONSTRAINT fk_task
     FOREIGN KEY (schedule_idx) REFERENCES Schedule(schedule_idx)
 );
 
