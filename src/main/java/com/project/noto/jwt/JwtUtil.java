@@ -24,7 +24,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 .setSubject(memberId)                     // 토큰 소유자 지정(토큰 내용)
-                .claim("role", role)
+                .claim("role", role)                   // 토큰 소유자의 role 지정
                 .setIssuedAt(new Date(now))               // 발급 시간
                 .setExpiration(new Date(now + expirationTime)) // 만료 시간(현재 시간 + 지정 시간)
                 .signWith(key, SignatureAlgorithm.HS256)  // 키 + 알고리즘으로 서명
@@ -40,6 +40,17 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();              // subject (memberId) 추출
     }
+
+    public String getRoleFromToken(String token) {
+        // 토큰에 저장한 role 추출
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("role", String.class);
+    }
+
 
     public boolean validateToken(String token) {
         // 서명 일치 여부, 토큰 만료 여부 등을 확인
