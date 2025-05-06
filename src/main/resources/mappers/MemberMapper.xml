@@ -6,8 +6,8 @@
 <mapper namespace="com.project.noto.mapper.MemberMapper">
 
     <insert id="insertMember" parameterType="com.project.noto.domain.Member">
-        INSERT INTO member (member_id, email, phone, nickname, password, is_verified, register_date)
-        VALUES (#{memberId}, #{email}, #{phone}, #{nickname}, #{password}, TRUE, NOW())
+        INSERT INTO member (member_id, email, phone, nickname, password, register_date, role)
+        VALUES (#{memberId}, #{email}, #{phone}, #{nickname}, #{password}, NOW(), #{role})
     </insert>
 
     <select id="findByMemberId" parameterType="String" resultType="com.project.noto.domain.Member">

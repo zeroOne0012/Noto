@@ -32,7 +32,7 @@ public class Member {
     )
     private String password;
 
-    private Boolean isVerified;
+    private String role;
 
     private LocalDateTime registerDate;
 }

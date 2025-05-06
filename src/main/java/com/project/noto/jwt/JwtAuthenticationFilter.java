@@ -1,3 +1,5 @@
+//모든 HTTP 요청마다 Authorization 헤더에 JWT 토큰이 있는지 확인하고, 유효하면 인증 객체를 등록하는 역할
+
 package com.project.noto.jwt;
 
 import jakarta.servlet.FilterChain;
