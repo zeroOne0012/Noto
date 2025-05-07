@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberService {
@@ -42,6 +43,7 @@ public class MemberService {
         return member;
     }
 
+    @Transactional
     public void resetPassword(String email) {
         Member member = memberMapper.findByEmail(email);
         if (member == null) throw new RuntimeException("등록된 이메일이 없습니다.");
