@@ -5,29 +5,19 @@ CREATE TABLE member (
     phone          VARCHAR(15)  NOT NULL UNIQUE,
     nickname       VARCHAR(30),
     password       VARCHAR(255)  NOT NULL,
+    role           VARCHAR(20) NOT NULL DEFAULT 'ROLE_USER',
     register_date  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Schedule (
+CREATE TABLE schedule (
     schedule_idx    INT PRIMARY KEY,
     title           VARCHAR(50) NOT NULL,
     schedule_type   VARCHAR(30) NOT NULL,
     cycle_type      VARCHAR(30),
-    active          BOOLEAN NOT NULL DEFAULT TRUE,
+    active          BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-CREATE TABLE NonRoutineSchedule (
-    schedule_idx    INT PRIMARY KEY,
-    title           VARCHAR(50) NOT NULL,
-    schedule_type   VARCHAR(30) NOT NULL,
-    start_date      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    end_date        TIMESTAMP,
-
-    CONSTRAINT fk_none_routine_schedule
-    FOREIGN KEY (schedule_idx) REFERENCES Schedule(schedule_idx)
-);
-
-CREATE TABLE Instance (
+CREATE TABLE instance (
     schedule_idx    INT,
     instance_idx    INT,
     achievement     BOOLEAN NOT NULL DEFAULT FALSE,
@@ -37,7 +27,7 @@ CREATE TABLE Instance (
     FOREIGN KEY (schedule_idx) REFERENCES Schedule(schedule_idx)
 );
 
-CREATE TABLE Category (
+CREATE TABLE category (
     member_id       VARCHAR(15),
     category_idx    INT,
     name            VARCHAR(30) NOT NULL,
@@ -46,8 +36,8 @@ CREATE TABLE Category (
     PRIMARY KEY (member_id, category_idx)
 );
 
-CREATE TABLE Statistic(
+CREATE TABLE statistic(
     statistic_idx INT PRIMARY KEY,
     complete_count INT NOT NULL DEFAULT 0,
     success_rate REAL DEFAULT 0.0
-)
+);

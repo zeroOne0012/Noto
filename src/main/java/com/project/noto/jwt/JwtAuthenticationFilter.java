@@ -1,3 +1,5 @@
+//모든 HTTP 요청마다 Authorization 헤더에 JWT 토큰이 있는지 확인하고, 유효하면 인증 객체를 등록하는 역할
+
 package com.project.noto.jwt;
 
 import jakarta.servlet.FilterChain;
@@ -9,6 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import java.util.Collections;
+import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 
 import java.io.IOException;
 
@@ -31,9 +38,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = authHeader.substring(7);
             if (jwtUtil.validateToken(token)) {
                 String memberId = jwtUtil.getMemberIdFromToken(token);
+                String role = jwtUtil.getRoleFromToken(token);
+
+                List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
 
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(memberId, null, null);
+                        new UsernamePasswordAuthenticationToken(memberId, null, authorities);
 
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -23,6 +23,7 @@ public class MemberService {
             throw new RuntimeException("이미 존재하는 사용자입니다.");
         }
         member.setPassword(passwordEncoder.encode(member.getPassword())); // 암호화
+        member.setRole("ROLE_USER");
         memberMapper.insertMember(member);
     }
 
