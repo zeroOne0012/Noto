@@ -14,4 +14,12 @@
         SELECT * FROM member WHERE member_id = #{memberId}
     </select>
 
+    <select id="findByEmail" parameterType="String" resultType="com.project.noto.domain.Member">
+        SELECT * FROM member WHERE email = #{email}
+    </select>
+
+    <update id="updatePassword">
+        UPDATE member SET password = #{newPassword} WHERE member_id = #{memberId}
+    </update>
+
 </mapper>

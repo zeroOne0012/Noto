@@ -1,6 +1,7 @@
 package com.project.noto.controller;
 
 import com.project.noto.dto.LoginRequest;
+import com.project.noto.dto.PasswordResetRequest;
 import com.project.noto.jwt.JwtUtil;
 import com.project.noto.domain.Member;
 import com.project.noto.service.MemberService;
@@ -34,4 +35,11 @@ public class AuthController {
         String token = jwtUtil.generateToken(member.getMemberId(), member.getRole());
         return ResponseEntity.ok(token);
     }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody @Valid PasswordResetRequest request) {
+        memberService.resetPassword(request.getEmail());
+        return ResponseEntity.ok("임시 비밀번호가 이메일로 전송되었습니다.");
+    }
+
 }
