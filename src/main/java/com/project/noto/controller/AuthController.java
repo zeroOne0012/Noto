@@ -30,7 +30,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginRequest loginRequest) {
         Member member = memberService.login(loginRequest.getMemberId(), loginRequest.getPassword());
         String token = jwtUtil.generateToken(member.getMemberId(), member.getRole());
         return ResponseEntity.ok(token);

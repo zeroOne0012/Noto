@@ -2,11 +2,9 @@ package com.project.noto.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class PasswordResetRequest {
 
     @NotBlank(message = "이메일은 필수입니다.")

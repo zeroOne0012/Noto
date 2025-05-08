@@ -11,31 +11,14 @@
     </insert>
 
     <select id="findByMemberId" parameterType="String" resultType="com.project.noto.domain.Member">
-        SELECT
-        member_id AS memberId,
-        email,
-        phone,
-        nickname,
-        password,
-        role,
-        register_date AS registerDate
-        FROM member
+        SELECT * FROM member
         WHERE member_id = #{memberId}
     </select>
 
     <select id="findByEmail" parameterType="String" resultType="com.project.noto.domain.Member">
-        SELECT
-        member_id AS memberId,
-        email,
-        phone,
-        nickname,
-        password,
-        role,
-        register_date AS registerDate
-        FROM member
+        SELECT * FROM member
         WHERE email = #{email}
     </select>
-
 
     <update id="updatePassword">
         UPDATE member SET password = #{newPassword} WHERE member_id = #{memberId}
