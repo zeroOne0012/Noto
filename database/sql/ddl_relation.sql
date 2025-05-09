@@ -41,17 +41,6 @@ CREATE TABLE create_instance (
     FOREIGN KEY (instance_idx) REFERENCES Instance(instance_idx)
 );
 
-CREATE TABLE devide_task (
-    schedule_idx   INT,
-    task_idx       INT,
-    date           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (schedule_idx, task_idx),
-
-    FOREIGN KEY (schedule_idx) REFERENCES Schedule(schedule_idx),
-    FOREIGN KEY (task_idx) REFERENCES Task(task_idx)
-);
-
 CREATE TABLE include_instance (
     instance_idx   INT,
     category_idx   INT,
@@ -59,26 +48,6 @@ CREATE TABLE include_instance (
     PRIMARY KEY (instance_idx, category_idx),
 
     FOREIGN KEY (instance_idx) REFERENCES Instance(instance_idx),
-    FOREIGN KEY (category_idx) REFERENCES Category(category_idx)
-);
-
-CREATE TABLE include_task (
-    task_idx       INT,
-    category_idx   INT,
-
-    PRIMARY KEY (task_idx, category_idx),
-
-    FOREIGN KEY (task_idx) REFERENCES Task(task_idx),
-    FOREIGN KEY (category_idx) REFERENCES Category(category_idx)
-);
-
-CREATE TABLE include_task (
-    task_idx       INT,
-    category_idx   INT,
-
-    PRIMARY KEY (task_idx, category_idx),
-
-    FOREIGN KEY (task_idx) REFERENCES Task(task_idx),
     FOREIGN KEY (category_idx) REFERENCES Category(category_idx)
 );
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.noto.mapper.MemberMapper">
+
+    <insert id="insertMember" parameterType="com.project.noto.domain.Member">
+        INSERT INTO member (member_id, email, phone, nickname, password, register_date, role)
+        VALUES (#{memberId}, #{email}, #{phone}, #{nickname}, #{password}, NOW(), #{role})
+    </insert>
+
+    <select id="findByMemberId" parameterType="String" resultType="com.project.noto.domain.Member">
+        SELECT * FROM member
+        WHERE member_id = #{memberId}
+    </select>
+
+    <select id="findByEmail" parameterType="String" resultType="com.project.noto.domain.Member">
+        SELECT * FROM member
+        WHERE email = #{email}
+    </select>
+
+    <update id="updatePassword">
+        UPDATE member SET password = #{newPassword} WHERE member_id = #{memberId}
+    </update>
+
+</mapper>
