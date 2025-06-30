@@ -17,9 +17,17 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // 인증 예외 API
                         .requestMatchers("/", "/api/login", "/api/signup", "/api/reset-password").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN") // 관리자만 접근 가능
-                        .anyRequest().authenticated()
+
+                        // ADMIN 전용
+                        .requestMatchers("/admin").hasRole("ADMIN")
+
+                        // 나머지 API는 인증 필요
+                        .requestMatchers("/api/**").authenticated()
+
+                        // 그 외 나머지(React-정적 파일)
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())
