@@ -1,13 +1,13 @@
 package com.project.noto.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class MainController {
-    
+
     @GetMapping("/")
     public String home(){
-        return "서버 정상 동작중";
+        return "forward:/index.html";
     }
 }
