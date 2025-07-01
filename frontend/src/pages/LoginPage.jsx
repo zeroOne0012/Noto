@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../services/Auth';
+import { login } from '../api/Auth';
 
 function LoginPage() {
   const [memberId, setMemberId] = useState('');

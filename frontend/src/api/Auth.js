@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 
 export async function login({ memberId, password }) {
-  const response = await axios.post('/api/login', {
+  const response = await axiosInstance.post('/login', {
     member_id: memberId,
     password
   });
